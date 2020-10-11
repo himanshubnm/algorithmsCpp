@@ -9,7 +9,6 @@ This Repo Contains Computer Algorithms implemented in C++ with STL. This repo wi
 ## Array
 ## Linked Lists
 ## Stacks
-  Implementation with 
 	1. POP
 	2. PUSH
 	3. PRINT
