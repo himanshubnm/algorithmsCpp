@@ -89,6 +89,16 @@ struct node * deleteLocation(struct node *head, int idx){
     return head;
 }
 
+int listLength(struct node * head){
+    struct node *newnode = head;
+    int count = 0;
+    while(newnode!=NULL){
+        newnode = newnode->next;
+        count++;
+    }
+    return count;
+}
+
 int main(int argc, char const *argv[])
 {
     struct node *head = NULL;
@@ -103,6 +113,8 @@ int main(int argc, char const *argv[])
     head = insertLast(head, -2);
     head = insertLast(head, -3);    
     head = insertLocation(head, 99, 5);
+
+    cout <<  "Lenght : " <<listLength(head) << endl;
     
     struct node *temp = head;
     while(temp!=NULL)
@@ -120,6 +132,8 @@ int main(int argc, char const *argv[])
         temp = temp->next;
     } cout << endl;
 
+    cout <<  "Lenght : " <<listLength(head) << endl;
+
     head = deleteLast(head);
     temp = head;
     while(temp!=NULL)
@@ -135,6 +149,8 @@ int main(int argc, char const *argv[])
         cout << temp->data << " ";
         temp = temp->next;
     } cout << endl;
+
+    cout <<  "Lenght : " <<listLength(head) << endl;
 
     return 0;
 }
