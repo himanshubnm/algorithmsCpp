@@ -165,29 +165,25 @@ class Tree {
         if (root == NULL) return;
         std::stack<Node*> s1;
         std::stack<Node*> s2;
-
         s1.push(root);
-
         while(!s1.empty() || !s2.empty()){
-
             while(!s1.empty()){
                 Node* curr = s1.top();
                 s1.pop();
                 std::cout << curr->val << " ";
-                if (curr->left)
-                    s2.push(curr->left);
                 if (curr->right)
                     s2.push(curr->right);
+                if (curr->left)
+                    s2.push(curr->left);
             }
-
             while(!s2.empty()){
                 Node* curr = s2.top();
-                std::cout << curr->val << " ";
                 s2.pop();
-                if (curr->right);
-                    s1.push(curr->right);
+                std::cout << curr->val << " ";
                 if (curr->left)
                     s1.push(curr->left);
+                if (curr->right);
+                    s1.push(curr->right);
             }
         }
     }
@@ -236,6 +232,44 @@ class Tree {
         return std::min(_minDepth_(root->left), _minDepth_(root->right)) + 1;
     }
 
+    bool _binarySearchTree_(Node* root){
+        if (root == NULL) return true;
+        if (root->left != NULL)
+            if (root->left->val > root->val) return false;
+        if (root->right != NULL)
+            if (root->right->val < root->val) return false;
+        return _binarySearchTree_(root->left) && _binarySearchTree_(root->right);
+    }
+
+    int _maxWidth_(Node* root){
+        if (root == NULL) return 0; 
+        std::stack<struct Node*> s1;
+        std::stack<struct Node*> s2;
+        s1.push(root); 
+        int maxlen = -1;
+        while (!s1.empty() || !s2.empty()) { 
+            while (!s1.empty()) { 
+                maxlen = std::max(maxlen, (int)s1.size());
+                struct Node* temp = s1.top(); 
+                s1.pop(); 
+                if (temp->right) 
+                    s2.push(temp->right); 
+                if (temp->left) 
+                    s2.push(temp->left); 
+            } 
+            while (!s2.empty()) { 
+                maxlen = std::max(maxlen, (int)s2.size());
+                struct Node* temp = s2.top(); 
+                s2.pop(); 
+                if (temp->left) 
+                    s1.push(temp->left); 
+                if (temp->right) 
+                    s1.push(temp->right); 
+            } 
+        } 
+        return maxlen;
+    } 
+
 public:
 
     Tree(){
@@ -265,10 +299,10 @@ public:
     int maxDepth();
     int maxNode();
     int minDepth();
-
-    //phrase four
     bool binarySearchTree();
     int maxWidth();
+
+    //phrase four
     int diameter();
     bool searchNode(int key);
     
@@ -365,7 +399,13 @@ int Tree::minDepth(){
     return _minDepth_(root);
 }
 
+bool Tree::binarySearchTree(){
+    return _binarySearchTree_(root);
+}
 
+int Tree::maxWidth(){
+    return _maxWidth_(root);
+}
 
 
 
